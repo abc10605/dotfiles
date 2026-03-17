@@ -1,0 +1,63 @@
+{{- $delta := lookPath "delta" -}}
+{{- $op_gui := false -}}
+{{- $op_sign_program := "" -}}
+{{- $op_agent_sock := "" -}}
+
+{{- if eq .chezmoi.os "darwin" -}}
+  {{- if stat "/Applications/1Password.app" -}}
+    {{- $op_gui = true -}}
+    {{- $op_sign_program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign" -}}
+    {{- $op_agent_sock = (joinPath .chezmoi.homeDir "Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock") -}}
+  {{- end -}}
+{{- else if eq .chezmoi.os "linux" -}}
+  {{- if lookPath "1password" -}}
+    {{- $op_gui = true -}}
+    {{- $op_sign_program = (lookPath "op-ssh-sign") -}}
+    {{- $op_agent_sock = (joinPath .chezmoi.homeDir ".config/1Password/ssh/agent.sock") -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if $op_gui }}
+[commit]
+    gpgsign = true
+
+[gpg]
+    format = ssh
+
+[gpg "ssh"]
+    program = {{ $op_sign_program | quote }}
+{{- end }}
+
+{{- if $delta }}
+[core]
+    pager = "{{ $delta }}"
+
+[delta]
+    light = false
+    line-numbers = true
+    navigate = true
+    side-by-side = true
+
+[interactive]
+    diffFilter = "{{ $delta }} --color-only"
+{{- end }}
+
+[diff]
+    colorMoved = "default"
+
+[filter "lfs"]
+    clean = "git-lfs clean -- %f"
+    process = "git-lfs filter-process"
+    required = true
+    smudge = "git-lfs smudge -- %f"
+
+[init]
+    defaultBranch = "main"
+
+[merge]
+    conflictstyle = "diff3"
+
+[user]
+    name = "hsuan"
+    email = "git@zaidho.me"
+    signingkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHgm7sdiNcMNxk3GcnyOFPfJ4IftecPk1+sDctHBNtXC"
