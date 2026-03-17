@@ -1,0 +1,12 @@
+background-opacity = 0.850000
+copy-on-select = clipboard
+cursor-style = block
+cursor-style-blink = false
+font-family = CaskaydiaCove Nerd Font Mono
+font-feature = calt
+font-feature = ss01
+font-size = 15
+macos-option-as-alt = left
+shell-integration-features = no-cursor
+theme = Kanagawa Wave
+window-inherit-working-directory = false
