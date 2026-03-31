@@ -1,0 +1,5 @@
+date: +%Y-%m-%d %X
+header: true
+hyperlink: auto
+sorting:
+  dir-grouping: first
