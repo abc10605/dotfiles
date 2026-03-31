@@ -1,0 +1,23 @@
+# vim: set ft=yaml:
+
+{{- $delta := lookPath "delta" -}}
+
+git:
+  log:
+    showGraph: always
+    showWholeGraph: true
+  {{- if $delta }}
+  pagers:
+  - colorArg: always
+    pager: {{ $delta }} --dark --paging=never
+  {{- end }}
+  parseEmoji: true
+gui:
+  language: en
+  nerdFontsVersion: '3'
+  shortTimeFormat: '15:04'
+  timeFormat: 2006-01-02 15:04
+os:
+  editPreset: nvim
+services:
+  git.zaidho.me: gitea:git.zaidho.me
