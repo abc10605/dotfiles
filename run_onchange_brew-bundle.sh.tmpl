@@ -1,0 +1,12 @@
+#!/bin/bash
+
+{{ if eq .chezmoi.os "darwin" }}
+
+# Brewfile 內容變更時自動重跑（hash 用來追蹤變更）
+# {{ include "Brewfile" | sha256sum }}
+
+echo "Installing packages from Brewfile..."
+brew bundle
+
+{{ end }}
+
