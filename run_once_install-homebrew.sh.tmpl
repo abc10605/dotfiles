@@ -1,0 +1,22 @@
+#!/bin/bash
+
+{{ if eq .chezmoi.os "darwin" }}
+
+# Homebrew installs to /opt/homebrew (Apple Silicon) or /usr/local (Intel)
+BREW_BIN=""
+if [ -x /opt/homebrew/bin/brew ]; then
+  BREW_BIN=/opt/homebrew/bin/brew
+elif [ -x /usr/local/bin/brew ]; then
+  BREW_BIN=/usr/local/bin/brew
+elif command -v brew &>/dev/null; then
+  BREW_BIN=$(command -v brew)
+fi
+
+if [ -z "$BREW_BIN" ]; then
+  echo "Installing Homebrew..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+else
+  echo "Homebrew already installed at $BREW_BIN, skipping."
+fi
+
+{{ end }}

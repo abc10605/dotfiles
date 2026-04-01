@@ -1,15 +1,23 @@
+# ╭────────────╮
+# │ initialize │
+# ╰────────────╯
 eval "$(/opt/homebrew/bin/brew shellenv)"
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
+eval "$(zellij setup --generate-auto-start zsh)"
 
-# completions
+# ╭─────────────╮
+# │ completions │
+# ╰─────────────╯
 FPATH="$(brew --prefix)/share/zsh-completions:$FPATH"
 autoload -Uz compinit
 compinit -u
 
 eval "$(op completion zsh)"
 
-# plugins
+# ╭─────────╮
+# │ plugins │
+# ╰─────────╯
 source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 source "$(brew --prefix)/share/fzf-tab/fzf-tab.zsh"
 source "$(brew --prefix)/share/zsh-autopair/autopair.zsh"
@@ -31,6 +39,9 @@ zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
 zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-flags --preview-window=down:3:wrap
 zstyle ':fzf-tab:complete:systemctl-*:*' fzf-preview 'SYSTEMD_COLORS=1 systemctl status $word'
 
+# ╭───────╮
+# │ alias │
+# ╰───────╯
 alias ls='lsd'
 alias l='lsd -l'
 alias la='lsd -a'
@@ -41,4 +52,8 @@ alias cat='bat --no-pager --plain'
 alias batman='BAT_THEME= batman'
 alias man='BAT_THEME= batman'
 
+# ╭───────────────────────╮
+# │ Environment Vairables │
+# ╰───────────────────────╯
 export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+
