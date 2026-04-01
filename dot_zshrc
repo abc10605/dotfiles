@@ -4,9 +4,10 @@ eval "$(zoxide init zsh)"
 
 # completions
 FPATH="$(brew --prefix)/share/zsh-completions:$FPATH"
-eval "$(op completion zsh)"
 autoload -Uz compinit
 compinit -u
+
+eval "$(op completion zsh)"
 
 # plugins
 source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
@@ -35,5 +36,9 @@ alias l='lsd -l'
 alias la='lsd -a'
 alias lla='lsd -la'
 alias lt='lsd --tree'
+
+alias cat='bat --no-pager --plain' 
+alias batman='BAT_THEME= batman'
+alias man='BAT_THEME= batman'
 
 export SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
